@@ -8,7 +8,7 @@
 	try {
 		$con = new PDO($dsn, $user, $password);
 
-		$query = "SELECT * FROM tb_usuarios";
+		$query = "SELECT * FROM tb_usuarios WHERE id=2";
 
 		$stmt = $con->query($query);
 
@@ -16,13 +16,13 @@
 		//FETCH_NUM = indice associado a tupla no retorno
 		//FETCH_BOTH = os dois acima
 		//FETCH_OBJ = torna o retorno em um objeto
-		$lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$usuario = $stmt->fetch(PDO::FETCH_OBJ);
 
 		echo "<pre>";
-		print_r($lista);
+		print_r($usuario);
 		echo "</pre>";
 
-		echo $lista[0]['nome'];
+		echo $usuario->nome;
 
 
 	} catch (PDOException $e) {
