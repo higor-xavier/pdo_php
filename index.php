@@ -11,13 +11,16 @@
 			$con = new PDO($dsn, $user, $password);
 
 			$query = "SELECT * FROM tb_usuarios WHERE";
-			$query .= " email = '{$_POST['usuario']}'";
-			$query .= " AND senha = '{$_POST['senha']}'";
+			$query .= " email = :usuario ";
+			$query .= " AND senha = :senha";
 
 			echo($query);
 			echo "<hr>";
 
-			$stmt = $con->query($query);
+			$stmt = $con->prepare($query);
+			$stmt->bindValue(':usuario',$_POST['usuario']);
+			$stmt->bindValue(':senha',$_POST['senha']);
+			$stmt->execute();
 			$usuario = $stmt->fetch();
 
 			echo "<pre>";
